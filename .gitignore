@@ -207,3 +207,9 @@ marimo/_lsp/
 __marimo__/
 Data_Engineering/Product-Return-DataBricks/*
 prod_return_test
+notebook/*csv
+notebook/*parquet
+notebook/test_data_ingestion.py
+
+/models
+/results

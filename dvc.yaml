@@ -1,0 +1,40 @@
+stages:
+  data_ingestion:
+    cmd: python -m source.data.data_ingestion
+    deps:
+    - source/data/data_ingestion.py
+    outs:
+    - data/raw
+
+  data_preprocessing:
+    cmd: python -m source.data.data_preprocessing
+    deps:
+    - source/data/data_preprocessing.py
+    - data/raw
+    outs: 
+    - data/preprocessed
+
+  data_transformation:
+    cmd: python -m source.data.data_transformation
+    deps:
+    - data/preprocessed
+    - source/data/data_transformation.py
+    outs:
+    - data/transformed
+
+  model_training:
+    cmd: python -m source.model.model_training
+    deps:
+    - data/transformed
+    - source/model/model_training.py
+    outs:
+    - models/
+
+  model_evaluation:
+    cmd: python -m source.model.model_evaluation
+    deps:
+    - data/transformed
+    - models
+    - source/model/model_evaluation.py
+    outs:
+    - results

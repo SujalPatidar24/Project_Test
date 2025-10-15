@@ -1,0 +1,92 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -m source.data.data_ingestion
+    deps:
+    - path: source/data/data_ingestion.py
+      hash: md5
+      md5: bd1029470e05b8f92a32d3575159d027
+      size: 3733
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: fcb31cd2b9a883caaabbd7e361e209c0.dir
+      size: 10323789
+      nfiles: 3
+  data_preprocessing:
+    cmd: python -m source.data.data_preprocessing
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: fcb31cd2b9a883caaabbd7e361e209c0.dir
+      size: 10323789
+      nfiles: 3
+    - path: source/data/data_preprocessing.py
+      hash: md5
+      md5: 5305a0d3fe5bd19707ac8e12658ada87
+      size: 1478
+    outs:
+    - path: data/preprocessed
+      hash: md5
+      md5: 7f0d52ce5d7d3db8cef2f0c311f7f260.dir
+      size: 4546021
+      nfiles: 2
+  data_transformation:
+    cmd: python -m source.data.data_transformation
+    deps:
+    - path: data/preprocessed
+      hash: md5
+      md5: 7f0d52ce5d7d3db8cef2f0c311f7f260.dir
+      size: 4546021
+      nfiles: 2
+    - path: source/data/data_transformation.py
+      hash: md5
+      md5: 63d321acbda3a10dee392800d842fb8c
+      size: 3342
+    outs:
+    - path: data/transformed
+      hash: md5
+      md5: fe611c06289e359d122fe4b1cab8801e.dir
+      size: 49120256
+      nfiles: 2
+  model_training:
+    cmd: python -m source.model.model_training
+    deps:
+    - path: data/transformed
+      hash: md5
+      md5: fe611c06289e359d122fe4b1cab8801e.dir
+      size: 49120256
+      nfiles: 2
+    - path: source/model/model_training.py
+      hash: md5
+      md5: 40882c80e79be4ec7109175a47118dd4
+      size: 982
+    outs:
+    - path: models/
+      hash: md5
+      md5: 6168a23aa05d3a3fa6aae0fec79970b4.dir
+      size: 3279
+      nfiles: 1
+  model_evaluation:
+    cmd: python -m source.model.model_evaluation
+    deps:
+    - path: data/transformed
+      hash: md5
+      md5: fe611c06289e359d122fe4b1cab8801e.dir
+      size: 49120256
+      nfiles: 2
+    - path: models
+      hash: md5
+      md5: 6168a23aa05d3a3fa6aae0fec79970b4.dir
+      size: 3279
+      nfiles: 1
+    - path: source/model/model_evaluation.py
+      hash: md5
+      md5: 7766441f4b36c00b256e0c5227e6d20e
+      size: 1559
+    outs:
+    - path: results
+      hash: md5
+      md5: d6978cd54d4025832d9bf18d06d3ba10.dir
+      size: 916
+      nfiles: 1
