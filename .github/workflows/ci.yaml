@@ -50,3 +50,19 @@ jobs:
           docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}/flaskapp:latest .
           echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.AZURE_CONTAINER_REGISTRY }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
           docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}/flaskapp:latest
+
+      # ☸️ Deploy to AKS
+      # - name: Set up kubectl
+      #   uses: azure/setup-kubectl@v3
+
+      # - name: Get AKS credentials
+      #   run: |
+      #     az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }}
+
+      # - name: Create Kubernetes Secret
+      #   run: |
+      #     kubectl create secret generic capstone-secret \
+      #       --from-literal=CAPSTONE_TEST=${{ secrets.CAPSTONE_TEST }} --dry-run=client -o yaml | kubectl apply -f -
+
+      # - name: Deploy to AKS
+      #   run: kubectl apply -f deployment.yaml
