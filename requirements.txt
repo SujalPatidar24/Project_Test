@@ -1,0 +1,15 @@
+pandas
+numpy
+azure-storage-blob
+python-dotenv
+pyarrow
+ipykernel
+seaborn
+matplotlib
+scipy
+scikit-learn
+lightgbm
+dvc
+Flask
+prometheus_client
+-e .
