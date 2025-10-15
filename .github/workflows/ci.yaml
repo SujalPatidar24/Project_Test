@@ -1,6 +1,6 @@
 name: CI Pipeline
 
-on: puhh
+on: push
 
 jobs:
   project-testing:
